@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Library Catalog</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <h2>📚 Library Catalog</h2>
+
+  <form action="/add" method="POST">
+    <input name="title" placeholder="Title" required>
+    <input name="author" placeholder="Author" required>
+    <input name="description" placeholder="Description" required>
+    <button>Add</button>
+  </form>
+
+  <h3>All Books</h3>
+  <ul>
+  {% for b in books %}
+    <li><b>{{ b.title }}</b> by {{ b.author }}</li>
+  {% endfor %}
+  </ul>
+
+  <h3>Get Recommendations</h3>
+  <form action="/recommend" method="POST">
+    <input name="title" placeholder="Enter Book Title" required>
+    <button>Recommend</button>
+  </form>
+
+  <script src="{{ url_for('static', filename='/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Recommendations</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f8f9fa;
+            padding: 30px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            list-style-type: none;
+        }
+        li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .message {
+            color: orange;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Book Recommendation System</h2>
+
+    <form method="POST">
+        <label>Enter a book title:</label><br>
+        <input type="text" name="title" placeholder="e.g. The Hobbit" required>
+        <button type="submit">Recommend</button>
+    </form>
+
+    {% if message %}
+        <p class="message">{{ message }}</p>
+    {% endif %}
+
+    {% if error %}
+        <p class="error">Error: {{ error }}</p>
+    {% endif %}
+
+    {% if recs %}
+        <h3>Recommended Books for '{{ title }}':</h3>
+        <ul>
+            {% for r in recs %}
+                <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
