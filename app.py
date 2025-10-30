@@ -33,7 +33,7 @@ def recommend():
 
             # 🔹 Call the ML model
             recs = recommend_books(title, books_df)
-            print("✅ Recommendations:", recs)
+            print("Recommendations:", recs)
 
             if not recs:
                 message = f"No recommendations found for '{title}'. Please check spelling."
@@ -42,7 +42,7 @@ def recommend():
             return render_template('recommend.html', title=title, recs=recs)
 
         except Exception as e:
-            print("❌ Error in recommendation:", e)
+            print("Error in recommendation:", e)
             return render_template('recommend.html', error=str(e))
 
     return render_template('recommend.html')
