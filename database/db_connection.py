@@ -1,15 +1,29 @@
-from pymongo import MongoClient
+import mysql.connector
 import pandas as pd
 
-def load_books_from_mongo():
-    client = MongoClient("mongodb://localhost:27017/")
-    db = client["library_db"]
-    books_collection = db["books"]
-    books = list(books_collection.find({}, {"_id": 0}))  # exclude _id
-    return pd.DataFrame(books)
+# ------------------ LOAD BOOKS FROM MYSQL ------------------
+def load_books_from_mysql():
+    # Connect to MySQL (phpMyAdmin uses this same connection)
+    conn = mysql.connector.connect(
+        host="localhost",
+        user="root",              # same user as in phpMyAdmin
+        password="",              # leave blank if no password
+        database="library_db"     # your database name
+    )
 
-from pymongo import MongoClient
+    # Load data from the 'books' table
+    query = "SELECT title, author, description FROM books;"
+    df = pd.read_sql(query, conn)
+    conn.close()
+    return df
 
+
+# ------------------ GET MYSQL CONNECTION ------------------
 def get_db():
-    client = MongoClient("mongodb://localhost:27017/")
-    return client["library_db"]
+    conn = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="library_db"
+    )
+    return conn
